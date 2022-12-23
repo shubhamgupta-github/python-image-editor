@@ -2,13 +2,13 @@ import os
 from PIL import Image, ImageEnhance, ImageFilter
 
 
-path = "./imgs"  # folder for unedited images
-pathOut = "./editedImgs"  # folder for edited images
+path = "./imgs"  # dir for unedited images.
+pathOut = "./editedImgs"  # dir for edited images.
 
 for filename in os.listdir(path):
     img = Image.open(f"{path}/{filename}")
 
-    # sharpening, BW
+    # sharpening, Black&White
     edit = img.filter(ImageFilter.SHARPEN).convert('L').rotate(-90)
 
     # contrast
@@ -16,8 +16,7 @@ for filename in os.listdir(path):
     enhancer = ImageEnhance.Contrast(edit)
     edit = enhancer.enhance(factor)
 
-    # ADD MORE EDITS FROM DOCUMENTATION https://pillow.readthedocs.io/en/stable/
-
+    # renaming edited photos.
     clean_name = os.path.splitext(filename)[0]
 
     edit.save(f'.{pathOut}/{clean_name}_edited.jpg')
